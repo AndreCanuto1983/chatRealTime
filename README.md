@@ -1,2 +1,2 @@
 # chatRealTime
-Basic app chat in real time with the react server and node.js
+Basic chat application with react, node.js, javascript, html, css, bootstrap
