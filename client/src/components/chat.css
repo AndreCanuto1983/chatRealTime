@@ -75,6 +75,15 @@
   outline: none;
 }
 
+.message {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  display: inline-block;
+  list-style: none;
+  padding: .1rem 1rem;
+  margin-bottom: 5px;
+}
+
 .list {
   padding: 1rem;
   border: 1px solid lightgray;
@@ -91,21 +100,8 @@
   display: flow-root;
 }
 
-.list-item.list-item--mine {
-  text-align: right;
-}
-
-.message {
-  border: 1px solid transparent;
-  border-radius: 5px;
-  display: inline-block;
-  list-style: none;
-  padding: .1rem 1rem;
-  margin-bottom: 5px;
-}
-
 .message.message-local {
-  background: #ecf9ec;
+  background: #ddffdd;
   border-color: #93bf50;
   float: right;
 }

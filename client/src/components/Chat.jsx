@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import './chat.css'
-import io from 'socket.io-client'
-import uuid from 'uuid/v4'
+import React, { useEffect, useState } from 'react';
+import './chat.css';
+import io from 'socket.io-client';
+import uuid from 'uuid/v4';
 
-const myId = uuid()
-const socket = io('http://localhost:8080')
-socket.on('connect', () => console.log('Connected'))
+const myId = uuid();
+const socket = io('http://localhost:8080');
+socket.on('connect', () => console.log());
 
-const Chat = () => {
-    const [message, updateMessage] = useState('')
-    const [user, updateUser] = useState('')
-    const [timer, updateTimer] = useState('')
-    const [messages, updateMessages] = useState([])
+export default () => {
+    const [message, updateMessage] = useState('');
+    const [user, updateUser] = useState('');
+    const [timer, updateTimer] = useState('');
+    const [messages, updateMessages] = useState([]);
 
     useEffect(() => {
         const handleNewMessage = newMessage =>
-            updateMessages([...messages, newMessage])
+            updateMessages([...messages, newMessage]);
 
-        socket.on('chat.message', handleNewMessage)
+        socket.on('chat.message', handleNewMessage);
 
-        return () => socket.off('chat.message', handleNewMessage)
-    }, [messages])
+        return () => socket.off('chat.message', handleNewMessage); // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [messages]);
 
     const handleSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
 
         if (message.trim()) {
             socket.emit('chat.message', {
@@ -32,30 +32,34 @@ const Chat = () => {
                 timer,
                 message
             })
-            updateMessage('')
+            updateMessage('');
         }
     }
 
     const getHour = () => {
         let data = new Date();
-        return data.getHours() + ':' + data.getMinutes()
+        return data.getHours() + ':' + data.getMinutes();
     }
 
     const handleMsgInputChange = event =>
-        updateMessage(event.target.value)
+        updateMessage(event.target.value);
 
     const handleUserInputChange = event =>
-        updateUser(event.target.value)
+        updateUser(event.target.value);
 
-    const handleTimerChange = event =>
-        updateTimer(getHour())
+    const handleTimerChange = () =>
+        updateTimer(getHour());
 
     return (
         <div className="container">
             <div className="main-content">
                 <div className="nav-header shadow-sm bg-white rounded">
                     <span><i className="i fas fa-user-circle"></i></span>
-                    <input className="nav-label nav-form-field" type="text" placeholder="Insira seu nome" onChange={handleUserInputChange} value={user} />
+                    <input className="nav-label nav-form-field"
+                        type="text"
+                        placeholder="Insira seu nome"
+                        onChange={handleUserInputChange}
+                        value={user} />
                 </div>
                 <form onSubmit={handleSubmit} onChange={handleTimerChange}>
                     <ul className="list shadow-sm bg-white rounded">
@@ -83,5 +87,3 @@ const Chat = () => {
         </div>
     )
 }
-
-export default Chat
